@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo-nginx-dev
+  namespace: demo-dev
+  labels:
+    app: demo-nginx-dev
+    env: dev
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: demo-nginx-dev
+  template:
+    metadata:
+      labels:
+        app: demo-nginx-dev
+        env: dev
+    spec:
+      volumes:
+        - name: html-cache
+          emptyDir: {}
+      containers:
+        - name: nginx
+          image: nginx:1.25-alpine   # şu an kullandığın image
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: html-cache
+              mountPath: /var/cache/nginx
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "256Mi"
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 10
+            periodSeconds: 15
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 5
+            periodSeconds: 10
