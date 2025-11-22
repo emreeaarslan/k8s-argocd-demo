@@ -3,4 +3,4 @@ kind: Deployment
 metadata:
   name: demo-nginx
 spec:
-  replicas: 3
+  replicas: 3 # HPA kısmında min replica 2 olduğu için 2'ye düşürüyor geri ama bunu patch hpa kısmını ekleyerek değiştirebiliriz
