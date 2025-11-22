@@ -1,0 +1,14 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+# Ortak kısımlar base'den alınır
+resources:
+  - ../../base
+  - namespace.yaml
+
+# Tüm resource'lar demo-dev namespace'ine gidecek
+namespace: demo-dev
+
+# Base içindeki deployment'a patch uyguluyoruz (replicas: 2)
+patches:
+  - path: patch-replicas.yaml

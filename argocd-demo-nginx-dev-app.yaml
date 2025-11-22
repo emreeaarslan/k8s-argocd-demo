@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: https://github.com/emreeaarslan/k8s-argocd-demo.git
     targetRevision: main
-    path: environments/dev
+    path: services/demo-nginx/overlays/dev
   destination:
     server: https://kubernetes.default.svc
     namespace: demo-dev
